@@ -76,4 +76,4 @@ var t=arguments[3];function e(t){return(e="function"==typeof Symbol&&"symbol"==t
 },{}],"Focm":[function(require,module,exports) {
 "use strict";var e=require("./js/Api"),r=require("./js/getRef"),t=require("./js/renderingMarkup"),i=n(require("simplelightbox"));function n(e){return e&&e.__esModule?e:{default:e}}require("simplelightbox/dist/simple-lightbox.min.css"),require("./style.css");const s=new i.default(".gallery a",{captionsData:"alt",captionDelay:250}),{formRef:a,containerRef:u}=(0,r.getRefs)();function l(r){let t;r.preventDefault();if(t=r.currentTarget.searchQuery.value.trim())try{(0,e.getImg)(t,1).then(c)}catch(i){console.error(i)}}function c(e){u.insertAdjacentHTML("beforeend",(0,t.renderMarkup)(e)),s.refresh()}a.addEventListener("submit",l),l();
 },{"./js/Api":"Jphg","./js/getRef":"ZIIB","./js/renderingMarkup":"mw9w","simplelightbox":"yx6k","simplelightbox/dist/simple-lightbox.min.css":"kz9M","./style.css":"kz9M"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-11/src.4659bf24.js.map
+//# sourceMappingURL=/goit-js-hw-11/src.eff8621a.js.map
