@@ -1,5 +1,7 @@
 import { ApiService } from './js/Api';
 import { getRefs } from './js/getRef';
+import { fullGallery } from './js/full-Gallery';
+import { checkRequest } from './js/check-request';
 import { renderMarkup } from './js/renderingMarkup';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -12,42 +14,33 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
+
 const apiService = new ApiService();
 
 btnRef.classList.add('is-hidden');
+
 formRef.addEventListener('submit', e => {
   e.preventDefault();
 
   apiService.query = e.currentTarget.searchQuery.value.trim();
-
   if (apiService.query === '') {
     return;
   }
-  clearGallery();
+  clearGallery(containerRef, btnRef);
   apiService.resetPage();
+
   axiosImg()
     .then(response => checkRequest(response))
     .then(response => createGallery(response.hits))
     .catch(() => {
       btnRef.classList.add('is-hidden');
-      Notify.info("We're sorry, but you've reached the end of search results.");
+      Notify.failure("We're sorry, but you've reached the end of search results.");
     });
 });
 
-function createGallery(data) {
-  containerRef.insertAdjacentHTML('beforeend', renderMarkup(data));
-
+function createGallery(response) {
+  containerRef.insertAdjacentHTML('beforeend', renderMarkup(response));
   lightbox.refresh();
-}
-
-function checkRequest(response) {
-  if (response.hits.length === 0) {
-    return;
-  }
-
-  Notify.success(`Hooray! We found ${response.totalHits} totalHits images.`);
-
-  return response;
 }
 
 async function axiosImg() {
@@ -56,8 +49,8 @@ async function axiosImg() {
   return response;
 }
 
-function clearGallery() {
-  getRefs.innerHTML = '';
+function clearGallery(refs) {
+  refs.innerHTML = '';
 }
 
 btnRef.addEventListener('click', onClickLoadMoreBtn);
@@ -71,11 +64,4 @@ async function onClickLoadMoreBtn() {
       btnRef.classList.add('is-hidden');
       Notify.info("We're sorry, but you've reached the end of search results.");
     });
-}
-
-function fullGallery(response) {
-  if (response.hits.length === 0) {
-    return;
-  }
-  return response;
 }
