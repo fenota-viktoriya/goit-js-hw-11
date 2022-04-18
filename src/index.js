@@ -25,7 +25,10 @@ formRef.addEventListener('submit', e => {
   }
   clearGallery();
   apiService.resetPage();
-  checkRequest();
+  axiosImg()
+    .then(response => checkRequest(response))
+    .then(response => createGallery(response.hits))
+    .catch(() => Notify.info("We're sorry, but you've reached the end of search results."));
 });
 
 function createGallery(data) {
@@ -34,23 +37,20 @@ function createGallery(data) {
   lightbox.refresh();
 }
 
-async function checkRequest() {
-  const response = await apiService.axios();
-
+function checkRequest(response) {
   if (response.hits.length === 0) {
-    Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     return;
   }
 
   Notify.success(`Hooray! We found ${response.totalHits} totalHits images.`);
 
-  axiosImg();
+  return response;
 }
 
 async function axiosImg() {
-  const response = await apiService.axios();
-  createGallery(response.hits);
+  const response = await apiService.axios().then();
   btnRef.classList.remove('is-hidden');
+  return response;
 }
 
 function clearGallery() {
@@ -60,13 +60,6 @@ function clearGallery() {
 btnRef.addEventListener('click', onClickLoadMoreBtn);
 
 async function onClickLoadMoreBtn() {
-  const response = await apiService.axios();
-  const max_page = response.totalHits;
-  const per_page = response.per_page;
-  if (max_page) {
-    apiService.incrementPage();
-    axiosImg();
-  }
-  btnRef.classList.add('is-hidden');
-  //Notify.failure('the end');
+  apiService.incrementPage();
+  axiosImg().then(response => createGallery(response.hits));
 }
