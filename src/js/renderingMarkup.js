@@ -1,5 +1,5 @@
 export function renderMarkup(data) {
-  const markup = data.data.hits
+  const markup = data
     .map(
       ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
     
