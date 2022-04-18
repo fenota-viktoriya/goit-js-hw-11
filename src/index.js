@@ -61,5 +61,18 @@ btnRef.addEventListener('click', onClickLoadMoreBtn);
 
 async function onClickLoadMoreBtn() {
   apiService.incrementPage();
-  axiosImg().then(response => createGallery(response.hits));
+  axiosImg()
+    .then(response => fullGallery(response))
+    .then(response => createGallery(response.hits))
+    .catch(() => {
+      btnRef.classList.add('is-hidden');
+      Notify.info("We're sorry, but you've reached the end of search results.");
+    });
+}
+
+function fullGallery(response) {
+  if (response.hits.length === 0) {
+    return;
+  }
+  return response;
 }
