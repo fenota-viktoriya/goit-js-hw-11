@@ -28,7 +28,10 @@ formRef.addEventListener('submit', e => {
   axiosImg()
     .then(response => checkRequest(response))
     .then(response => createGallery(response.hits))
-    .catch(() => Notify.info("We're sorry, but you've reached the end of search results."));
+    .catch(() => {
+      btnRef.classList.add('is-hidden');
+      Notify.info("We're sorry, but you've reached the end of search results.");
+    });
 });
 
 function createGallery(data) {
