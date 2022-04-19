@@ -13,7 +13,7 @@ export class ApiService {
   async axios() {
     try {
       const response = await axios.get(
-        `?key=${API_KEY}&q=${this.searchQuery}&page=${this.page}&per_page=40&image_type=photo&orientation=horizontal&safesearch=true`,
+        `?key=${API_KEY}&q=${this.searchQuery}&page=${this.page}&per_page=100&image_type=photo&orientation=horizontal&safesearch=true`,
       );
 
       return response.data;

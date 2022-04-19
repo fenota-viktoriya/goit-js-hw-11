@@ -1,6 +1,6 @@
 import { ApiService } from './js/Api';
 import { getRefs } from './js/getRef';
-import { fullGallery } from './js/full-Gallery';
+//import { fullGallery } from './js/full-Gallery';
 import { checkRequest } from './js/check-request';
 import { renderMarkup } from './js/renderingMarkup';
 import SimpleLightbox from 'simplelightbox';
@@ -34,6 +34,7 @@ formRef.addEventListener('submit', e => {
     .then(response => checkRequest(response))
     .then(response => {
       createGallery(response.hits);
+      Notify.success(`Hooray! We found ${response.totalHits} totalHits images.`);
     })
     .catch(() => {
       btnRef.classList.add('is-hidden');
@@ -61,7 +62,7 @@ btnRef.addEventListener('click', onClickLoadMoreBtn);
 async function onClickLoadMoreBtn() {
   apiService.incrementPage();
   axiosImg()
-    .then(response => fullGallery(response))
+    .then(response => checkRequest(response))
     .then(response => createGallery(response.hits))
     .catch(() => {
       btnRef.classList.add('is-hidden');
