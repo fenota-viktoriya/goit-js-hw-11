@@ -28,11 +28,11 @@ formRef.addEventListener('submit', e => {
   }
   clearGallery(containerRef, btnRef);
   apiService.resetPage();
+  formRef.reset();
 
   axiosImg()
     .then(response => checkRequest(response))
     .then(response => {
-      formRef.reset();
       createGallery(response.hits);
     })
     .catch(() => {
