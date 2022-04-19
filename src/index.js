@@ -31,10 +31,13 @@ formRef.addEventListener('submit', e => {
 
   axiosImg()
     .then(response => checkRequest(response))
-    .then(response => createGallery(response.hits))
+    .then(response => {
+      formRef.reset();
+      createGallery(response.hits);
+    })
     .catch(() => {
       btnRef.classList.add('is-hidden');
-      Notify.failure("We're sorry, but you've reached the end of search results.");
+      Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     });
 });
 
