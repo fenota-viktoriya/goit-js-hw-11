@@ -6,7 +6,8 @@ const API_KEY = '25182566-6d97045846fa1b6cae2a84492';
 
 export class ApiService {
   constructor() {
-    (this.searchQuery = ''), (this.page = 1);
+    this.searchQuery = '';
+    this.page = 1;
   }
 
   async axios() {
