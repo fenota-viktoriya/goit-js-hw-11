@@ -4,10 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Заголовок страницы</title>
-    <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@main/dist/build/static/js/bundle.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@main/dist/build/static/js/bundle.min.js"></script> -->
   </head>
   <body>
-  <langflow-chat style="
+    <script>!(function () {
+      let e = document.createElement("script"),
+        t = document.head || document.getElementsByTagName("head")[0];
+      (e.src =
+        "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+        // Replace 1.x.x with the version that you want
+        (e.async = !0),
+        (e.onload = () => {
+          window.WebChat.default(
+            {
+              customData: { language: "en" },
+              socketUrl: "https://bf-botfront.development.agents.botfront.cloudhttps://aibotnr-9896-65788ae4387fb71100000049.ubos.tech/ws/test",
+              // add other props here
+            },
+            null
+          );
+        }),
+        t.insertBefore(e, t.firstChild);
+    })();
+    </script>
+  <!-- <langflow-chat style="
   position: absolute;
  bottom: 0;
   right: 50%;
@@ -16,7 +36,7 @@
       chat_inputs='{"input":""}'
       host_url="https://aibotnr-9896-65788ae4387fb71100000049.ubos.tech/langflow"
       flow_id="123"
-    ></langflow-chat>
+    ></langflow-chat> -->
   </body>
   </html>
   
